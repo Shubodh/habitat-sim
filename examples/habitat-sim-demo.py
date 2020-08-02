@@ -14,20 +14,29 @@ import os
 import numpy as np
 import json
 
-
+from pathlib import Path
 
 #TODO 1:  
+# replica data and Data collection root paths
+replica_data = "/scratch/shubodh/2020/Replica-Dataset/Replica-v1-data/"
+data_collection_root = '/scratch/shubodh/2020/GradGR-dataset-Habitat/data_collection/'
 # Set scene path
-test_scene = "/media/shubodh/DATA/Downloads/data-non-onedrive/replica_v1/apartment_0/habitat/mesh_semantic.ply"
+scene_id = "apartment_0/" #assuming only Replica for now
+test_scene = replica_data + scene_id + "habitat/mesh_semantic.ply"
+# Set existing poses file path (corresponding to which data will be extracted)
+poses_json = data_collection_root + scene_id + "poses_run-replica-apartment_0.json"
 # Whether you want to save a video correpsonding to robot trajectory, its path and name.
 save_video = True
-video_path = './data_collection/apartment_0/'
+video_path = data_collection_root + scene_id 
 video_name = 'data_run_video'
-# Set poses file path (corresponding to which data will be extracted)
-poses_json = "/media/shubodh/DATA/OneDrive/rrc_projects/2020/DeepGlobalRegistration-Navigation/habitat_all/habitat-sim/examples/data_collection/apartment_0/poses_run-replica-apartment_0.json"
 # Set to which paths you want to save raw data and visualization data  
-raw_data_folder = "./data_collection/apartment_0/raw_data/" 
-viz_data_folder = "./data_collection/apartment_0/viz_data/"
+raw_data_folder = data_collection_root + scene_id + "raw_data/" 
+viz_data_folder = data_collection_root + scene_id + "viz_data/"
+
+# Create paths if they don't exist
+Path(raw_data_folder).mkdir(parents=True, exist_ok=True)
+Path(viz_data_folder).mkdir(parents=True, exist_ok=True)
+
 
 #TODO 2: Set settings like spatial resolution
 sim_settings = {
@@ -105,12 +114,7 @@ cfg = make_cfg(sim_settings)
 sim = habitat_sim.Simulator(cfg)
 
 
-
-
 # # Scene semantic annotations
-
-# In[6]:
-
 
 def print_scene_recur(scene, limit_output=10):
     print(f"House has {len(scene.levels)} levels, {len(scene.regions)} regions and {len(scene.objects)} objects")
