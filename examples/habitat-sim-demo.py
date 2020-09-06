@@ -16,7 +16,9 @@ import json
 
 from pathlib import Path
 
-#TODO 1:  
+#TODO 1:
+# If you are using this for the first time/debugging, set the following to True. If you want to extract data corresponding to entire path in poses_*.json, then set False.
+trial_data_collection = True
 # replica data and Data collection root paths
 replica_data = "/scratch/shubodh/2020/Replica-Dataset/Replica-v1-data/"
 data_collection_root = '/scratch/shubodh/2020/GradGR-dataset-Habitat/data_collection/'
@@ -226,8 +228,12 @@ action_names = list(
 
 images_for_video = []
 
-# TODO 4: Set how many datapoints you want to extract. If all the poses, then uncomment len() in the next line..
-max_frames = 5 #len(poses_path['position'])
+
+if trial_data_collection:
+    max_frames = 5 
+else:
+    max_frames = len(poses_path['position'])
+
 print("\n\nSAVING FIRST {} DATAPOINTS (RGB, DEPTH & INSTANCE) HAS STARTED. THE FOLLOWING ARE THE POSES CORRESPONDING TO WHICH DATA IS BEING EXTRACTED.\n\n".format(max_frames))
 while total_frames < max_frames:
 #     action = random.choice(action_names)
