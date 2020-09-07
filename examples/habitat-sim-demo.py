@@ -20,7 +20,7 @@ from pathlib import Path
 # If you are using this for the first time/debugging, set the following to True. If you want to extract data corresponding to entire path in poses_*.json, then set False.
 trial_data_collection = True
 # replica data and Data collection root paths
-replica_data = "/scratch/shubodh/2020/Replica-Dataset/Replica-v1-data/"
+replica_data = "/scratch/shubodh/2020/Replica-Dataset/"
 data_collection_root = '/scratch/shubodh/2020/GradGR-dataset-Habitat/data_collection/'
 # Set scene path
 scene_id = "apartment_0/" #assuming only Replica for now
@@ -154,12 +154,20 @@ from habitat_sim.utils.common import d3_40_colors_rgb
 
 def display_save_sample(rgb_obs, semantic_obs, depth_obs, obs_id, save=True, visualize=False):
     # Save raw data
-    if save:
-        np.save(raw_data_folder + str(obs_id) + "_rgb",rgb_obs)
-        np.save(raw_data_folder + str(obs_id) + "_instance-seg",semantic_obs)
-        np.save(raw_data_folder + str(obs_id) + "_depth",depth_obs)
-    
     rgb_img = Image.fromarray(rgb_obs, mode="RGBA")
+    
+    if save:
+        rgb_img.save(raw_data_folder + str(obs_id) + "_rgb.png")
+        
+        depth_mm = depth_obs * 1000
+        depth_mm_int = depth_mm.astype(np.int32)
+        depth_pil = Image.fromarray(depth_mm_int, mode="I")
+        depth_pil.save(raw_data_folder + str(obs_id) + '_depth_I.png')
+
+        semantic_int = semantic_obs.astype(np.int32)
+        semantic_pil = Image.fromarray(semantic_int, mode="I")
+        semantic_pil.save(raw_data_folder + str(obs_id) + '_instance-seg_I.png')
+
     
     semantic_img = Image.new("P", (semantic_obs.shape[1], semantic_obs.shape[0]))
     semantic_img.putpalette(d3_40_colors_rgb.flatten())
