@@ -10,30 +10,38 @@ import random
 import matplotlib.pyplot as plt
 import PyQt5
 import os
+import argparse
 
 import numpy as np
 import json
 
 from pathlib import Path
 
-#TODO 1:
+parser = argparse.ArgumentParser(description="This script generates images for poses corresponding to given pose file. You have to add the `poses_run-replica-(scene_id).json` file beforehand in `GradGR-dataset-Habitat/data_collection/(scene_id)`. \n  If you're unsure about what you're doing, please set exp argument to 1. Setting 1 will only generate 5 images. Set 0 to generate all images.")
+parser.add_argument("--scene_id", required=True, help = "scene id, for example: apartment_2")
+parser.add_argument("--exp", required=True, help = "Are you experimenting? Set 1 if yes, 0 if no.")
+
+args = parser.parse_args()
+
+
+#TODO 1: Check below paths and assignments
 # If you are using this for the first time/debugging, set the following to True. If you want to extract data corresponding to entire path in poses_*.json, then set False.
-trial_data_collection = True
+trial_data_collection = bool(int(args.exp)) 
 # replica data and Data collection root paths
 replica_data = "/scratch/shubodh/2020/Replica-Dataset/"
 data_collection_root = '/scratch/shubodh/2020/GradGR-dataset-Habitat/data_collection/'
 # Set scene path
-scene_id = "apartment_0/" #assuming only Replica for now
-test_scene = replica_data + scene_id + "habitat/mesh_semantic.ply"
+scene_id = args.scene_id #assuming only Replica for now
+test_scene = replica_data + scene_id + "/habitat/mesh_semantic.ply"
 # Set existing poses file path (corresponding to which data will be extracted)
-poses_json = data_collection_root + scene_id + "poses_run-replica-apartment_0.json"
+poses_json = data_collection_root + scene_id + "/poses_run-replica-" + scene_id + ".json"
 # Whether you want to save a video correpsonding to robot trajectory, its path and name.
 save_video = True
-video_path = data_collection_root + scene_id 
-video_name = 'data_run_video'
+video_path = data_collection_root + scene_id + "/" 
+video_name = 'data_run_video_' + scene_id
 # Set to which paths you want to save raw data and visualization data  
-raw_data_folder = data_collection_root + scene_id + "raw_data/" 
-viz_data_folder = data_collection_root + scene_id + "viz_data/"
+raw_data_folder = data_collection_root + scene_id + "/raw_data/" 
+viz_data_folder = data_collection_root + scene_id + "/viz_data/"
 
 # Create paths if they don't exist
 Path(raw_data_folder).mkdir(parents=True, exist_ok=True)
@@ -178,10 +186,14 @@ def display_save_sample(rgb_obs, semantic_obs, depth_obs, obs_id, save=True, vis
 
     # Save visualization data
     if save:
-        rgb_img.save(viz_data_folder + str(obs_id) + "_rgb.png")
-        semantic_img.save(viz_data_folder + str(obs_id) + "_instance-seg.png")
-        depth_img.save(viz_data_folder + str(obs_id) + "_depth.png")
-        print()
+        rgb_jpg = rgb_img.convert("RGB")
+        semantic_jpg = semantic_img.convert("RGB")
+        depth_jpg = depth_img.convert("RGB")
+
+        rgb_jpg.save(viz_data_folder + str(obs_id) + "_rgb.jpg")
+        semantic_jpg.save(viz_data_folder + str(obs_id) + "_instance-seg.jpg")
+        depth_jpg.save(viz_data_folder + str(obs_id) + "_depth.jpg")
+        #print()
     # visualize first 3 frames
     if visualize and (obs_id < 3):
         arr = [rgb_img, semantic_img, depth_img]
