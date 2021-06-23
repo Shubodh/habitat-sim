@@ -2,20 +2,8 @@
 [![codecov](https://codecov.io/gh/facebookresearch/habitat-sim/branch/master/graph/badge.svg)](https://codecov.io/gh/facebookresearch/habitat-sim)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebookresearch/habitat-sim/blob/master/LICENSE)
 
-# Habitat-Sim
-
-A flexible, high-performance 3D simulator with configurable agents, multiple sensors, and generic 3D dataset handling (with built-in support for [MatterPort3D](https://niessner.github.io/Matterport/), [Gibson](http://gibsonenv.stanford.edu/database/), [Replica](https://github.com/facebookresearch/Replica-Dataset), and other datasets).
-When rendering a scene from the Matterport3D dataset, Habitat-Sim achieves several thousand frames per second (FPS) running single-threaded, and reaches <a href="#fps_table"><b>over 10,000 FPS multi-process</b></a> on a single GPU!
-
-[Try Habitat in your browser!](https://aihabitat.org/demo)
-
-<p align="center">
-  <img src="docs/images/habitat_compressed.gif" height="400">
-</p>
-
----
-
 ## Table of contents
+   1. [Shubodh-documentation](#shubodh-documentation)
    1. [Motivation](#motivation)
    1. [Citing Habitat](#citing-habitat)
    1. [Details](#details)
@@ -34,7 +22,31 @@ When rendering a scene from the Matterport3D dataset, Habitat-Sim achieves sever
    1. [License](#license)
    1. [References](#references)
 
-## Motivation ##
+
+
+
+# Habitat-Sim
+
+A flexible, high-performance 3D simulator with configurable agents, multiple sensors, and generic 3D dataset handling (with built-in support for [MatterPort3D](https://niessner.github.io/Matterport/), [Gibson](http://gibsonenv.stanford.edu/database/), [Replica](https://github.com/facebookresearch/Replica-Dataset), and other datasets).
+When rendering a scene from the Matterport3D dataset, Habitat-Sim achieves several thousand frames per second (FPS) running single-threaded, and reaches <a href="#fps_table"><b>over 10,000 FPS multi-process</b></a> on a single GPU!
+
+[Try Habitat in your browser!](https://aihabitat.org/demo)
+
+<p align="center">
+  <img src="docs/images/habitat_compressed.gif" height="400">
+</p>
+
+---
+
+## Shubodh-documentation ##
+
+For step by step instructions, see Notion link in Step 2 below.
+
+1. If you're setting up habitat-sim, please follow upto date [official Facebook's repo](https://github.com/facebookresearch/habitat-sim). After installation, when you want to do data extraction for our graphVPR project:
+2. Go through the code in `./examples` folder, namely `habitat-sim-demo_xview.py`. You have to set TODOs (things like data path) and then run the python file to extract data. More instructions [here on Notion](https://www.notion.so/saishubodh/Understand-Habitat-Replica-data-extraction-workflow-c42528a87fbf413db14db0f01dd41d4e#7aeb8d52ddc84517904added281d62a9).
+
+
+## Motivation 
 AI Habitat enables training of embodied AI agents (virtual robots) in a highly photorealistic & efficient 3D simulator, before transferring the learned skills to reality.
 This empowers a paradigm shift from 'internet AI' based on static datasets (e.g. ImageNet, COCO, VQA) to embodied AI where agents act within realistic environments, bringing to the fore active perception, long-term planning, learning from interaction, and holding a dialog grounded in an environment.
 
