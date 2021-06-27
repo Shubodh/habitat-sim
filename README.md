@@ -42,7 +42,7 @@ When rendering a scene from the Matterport3D dataset, Habitat-Sim achieves sever
 
 For step by step instructions, see Notion link in Step 2 below.
 
-1. If you're setting up habitat-sim, please follow upto date [official Facebook's repo](https://github.com/facebookresearch/habitat-sim). After installation, when you want to do data extraction for our graphVPR project:
+1. If you're setting up habitat-sim, you can either follow upto date [official Facebook's repo](https://github.com/facebookresearch/habitat-sim) or download the repo/branch you're looking at currently. The former is upto date and has more functionality; but the latter is sufficient for our purposes and you will not need to make any changes in the general procedure that I described on Notion if you're doing the latter. So you may make a call accordingly. After installation, when you want to do data extraction for our graphVPR project:
 2. Go through the code in `./examples` folder, namely `habitat-sim-demo_xview.py`. You have to set TODOs (things like data path) and then run the python file to extract data. More instructions [here on Notion](https://www.notion.so/saishubodh/Understand-Habitat-Replica-data-extraction-workflow-c42528a87fbf413db14db0f01dd41d4e#7aeb8d52ddc84517904added281d62a9).
 
 
